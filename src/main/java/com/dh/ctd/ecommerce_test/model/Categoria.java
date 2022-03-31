@@ -1,9 +1,18 @@
 package com.dh.ctd.ecommerce_test.model;
 
+import javax.persistence.*;
+import java.util.*;
+
+@Entity
+@Table
 public class Categoria {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
+    @OneToMany(mappedBy = "categoria", fetch = FetchType.LAZY)
+    private Set<Produto> produtos = new HashSet<>();
 
     public Categoria() {
     }

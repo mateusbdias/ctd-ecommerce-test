@@ -1,12 +1,20 @@
 package com.dh.ctd.ecommerce_test.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table
 public class Produto {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String titulo;
     private Double preco;
     private String descricao;
     private String imagem;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_categoria")
     private Categoria categoria;
 
     public Produto() {
