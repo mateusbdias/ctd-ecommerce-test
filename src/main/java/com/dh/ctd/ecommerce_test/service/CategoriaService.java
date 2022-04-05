@@ -1,37 +1,41 @@
 package com.dh.ctd.ecommerce_test.service;
 
 import com.dh.ctd.ecommerce_test.model.Categoria;
-import com.dh.ctd.ecommerce_test.resources.IDao;
+import com.dh.ctd.ecommerce_test.repository.CategoriaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-public class CategoriaService {
+@Service
+public class CategoriaService implements IService<Categoria> {
 
-    private IDao<Categoria> categoriaIDao;
+    private final CategoriaRepository categoriaRepository;
 
-    public CategoriaService(IDao<Categoria> categoriaIDao) {
-        this.categoriaIDao = categoriaIDao;
+    @Autowired
+    public CategoriaService(CategoriaRepository categoriaRepository) {
+        this.categoriaRepository = categoriaRepository;
     }
 
-    public Categoria salvar(Categoria categoria) {
-        return categoriaIDao.salvar(categoria);
-    }
-
-    public Optional<Categoria> buscar(Integer id) {
-        return categoriaIDao.buscar(id);
-    }
-
+    @Override
     public List<Categoria> buscarTodos() {
-        return categoriaIDao.buscarTodos();
+        return categoriaRepository.findAll();
     }
 
+    @Override
+    public Optional<Categoria> buscar(Integer id) {
+        return categoriaRepository.findById(id);
+    }
+
+    @Override
+    public void salvar(Categoria categoria) {
+        categoriaRepository.save(categoria);
+    }
+
+    @Override
     public void excluir(Integer id) {
-        categoriaIDao.excluir(id);
-    }
-
-    public Categoria atualizar(Categoria categoria) {
-        return categoriaIDao.atualizar(categoria);
+        categoriaRepository.deleteById(id);
     }
 
 }

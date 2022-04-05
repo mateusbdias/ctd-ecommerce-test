@@ -3,7 +3,7 @@ package com.dh.ctd.ecommerce_test.model;
 import javax.persistence.*;
 
 @Entity
-@Table
+@Table(name = "produtos")
 public class Produto {
 
     @Id
